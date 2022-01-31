@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>VR Office - Loading user space, please wait.</title>
+    <meta name="description" content="Virtual Reality Office Space">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" />
+    <script src="VRCore/a-frame1.0.4.min.js"></script>
+    <script src="VRCore/aframe-environment-component.min.js"></script>
+    <script src="VRCore/aframe-extras.min.js"></script>
+    <script src="VRCore/aframe-teleport-controls.min.js"></script>
+    <script src="VRCore/aframe-text-geometry-component.min.js"></script>
+    <script src="VRCore/aframe-thumb-controls-component.min.js"></script>
+    <script src="VRCore/aframe-lensflare-component.min.js"></script>
+    <script src="VRCore/socket.io.slim.js"></script>
+    <script src="/easyrtc/easyrtc.js"></script>
+    <script src="/dist/networked-aframe.js"></script>
+    <script src="VRCore/aframe-randomizer-components.min.js"></script>
+    <script src="/js/spawn-in-circle.component.js"></script>
+    <script src="/js/info-message3.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/loader.css">
+    <script src="/js/loader.js"></script>
+
+    <script type="text/javascript">
+
+      AFRAME.registerComponent('click-listener', {
+        init: function () {
+            this.el.addEventListener('click', function (evt) {
+            });
+        }
+      });
+      AFRAME.registerComponent('audiohandler', {
+        init:function() {
+            let playing = false;
+            let audio = document.querySelector("#playAudio");
+            this.el.addEventListener('click', () => {
+                if(!playing) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                playing = !playing;
+            });
+        }
+      })
+
+
+      function playSound() {
+      }
+
+
+    </script>
+
+
+
+  </head>
+  <body>
+    <div id="splash">
+      <div class="loading"></div>
+      <div class="start-button"><Font color="limegreen">(Select, then) Enter VR</Font> <i>Button at lower right or Instructions</i></div>
+    </div>
+    <button id="playButton" type="button">Play Music</button>
+    <audio id="playAudio" autoplay loop>
+        <!-- <source src="https://rocketvirtual.com/A-Frame_WebXR/assets/mp3/Romanzeandante.mp3" type="audio/mpeg"> -->
+    </audio>
+    <a-scene networked-scene="
+      room: VROffice;
+      debug: true;
+      adapter: easyrtc;
+      audio: true;
+    " info-message="htmlSrc: #messageText" shadow="type: pcfsoft" renderer="antialias: true; highRefreshRate: true;" > 
+      <a-assets>
+        <a-asset-item id="messageText" src="ControlsMessage.html" response-type="text"></a-asset-item>
+        <!-- Our font -->
+        <a-asset-item id="optimerBoldFont" src="assets/fonts/optimer_bold.typeface.json"></a-asset-item>
+
+        <img crossorigin="anonymous" id="flare-asset" src="assets/img/adjustflare.jpg">
+
+        <a-asset-item id="Building" src="assets/gltf/New_Building_final1.glb" nav-agent="speed: 1.5; active: true"></a-asset-item>
+        <a-asset-item id="Building_skeleton" src="assets/gltf/New_Building_final_skeleton1.glb"></a-asset-item>
+
+        <a-asset-item id="Robot2" src="assets/gltf/robot_green.glb"></a-asset-item>
+        <a-asset-item id="Robot4" src="assets/gltf/robot_purple.glb"></a-asset-item>
+        <a-asset-item id="Robot5" src="assets/gltf/robot_red.glb"></a-asset-item>
+        <a-asset-item id="RobotHead" src="assets/gltf/FinalEditRoboHead.glb"></a-asset-item>
+        <a-asset-item id="Robot6" src="assets/gltf/robot_white.glb"></a-asset-item>
+
+        <a-asset-item id="SwivelChair" src="assets/gltf/chair4.glb"></a-asset-item>
+        <a-asset-item id="Table1" src="assets/gltf/Table_curved_legs.glb"></a-asset-item>
+        <a-asset-item id="Computer_Desk1" src="assets/gltf/computer_Desk.glb"></a-asset-item>
+        <a-asset-item id="Shelf3" src="assets/gltf/shelf4.glb"></a-asset-item>
+
+        <a-asset-item id="LHand" src="assets/gltf/leftHandLow.glb"></a-asset-item>
+        <a-asset-item id="RHand" src="assets/gltf/rightHandLow.glb"></a-asset-item>
+
+        <a-asset-item id="Rocket" src="assets/gltf/rocket4.glb"></a-asset-item>
+        <a-asset-item id="Saucer" src="assets/gltf/FlyingSaucer/fsaucer.glb"></a-asset-item>
+        <a-asset-item id="Raygun" src="assets/gltf/raygun4/raygun.glb"></a-asset-item>
+
+        <a-asset-item id="Grey" src="assets/gltf/alienLite.glb"></a-asset-item>
+
+        <img crossorigin="anonymous" src="assets/img/play2.png" id="play" >
+        <img crossorigin="anonymous" src="assets/img/pause.png" id="pause" >
+        <img crossorigin="anonymous" src="assets/img/volume-normal.png" id="volume-normal" >
+        <img crossorigin="anonymous" src="assets/img/volume-mute.png" id="volume-mute" >
+        <img crossorigin="anonymous" src="assets/img/seek-back.png" id="seek-back" >
+
+      
+        <template id="avatar-template">
+          <a-entity networked-audio-source></a-entity>
+        </template>
+        
+        <template id="head-template">
+          <a-entity class="cam" gltf-model="#RobotHead" scale="0.004 0.004 0.004"></a-entity>
+        </template>
+        
+        <template id="hand-left">
+          <a-entity class="leftController">
+            <!-- <a-box class="box" scale="0.1 0.1 0.1"></a-box>  -->
+            <a-entity gltf-model="#LHand" ></a-entity>
+          </a-entity>
+        </template>
+
+        <template id="hand-right">
+          <a-entity class="rightController">
+            <!-- <a-box class="box" scale="0.1 0.1 0.1"></a-box>  -->
+            <a-entity gltf-model="#RHand" ></a-entity>
+          </a-entity>
+        </template>
+
+      </a-assets>
+
+      <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+
+      <!-- nav-mesh: protecting us from running thru walls  -->
+      <a-entity id="navmesh-walls" gltf-model="assets/gltf/navmeshOffice.gltf" visible="false" nav-mesh=""></a-entity>
+
+      <!-- Basic movement, selection and teleport -->
+      <a-entity id="avatar" networked="template:#avatar-template;attachTemplateToLocal:false;"
+        movement-controls="constrainToNavMesh: true;" spawn-in-circle="radius:3">
+        <a-entity class="cam" networked="template:#head-template;attachTemplateToLocal:false;" camera="active: true"
+          position="0 1.6 0" look-controls></a-entity>
+        <a-entity class="leftController" networked="template:#hand-left;attachTemplateToLocal:false;"
+          hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF" teleport-controls="cameraRig: #avatar; teleportOrigin: #cam; button: trigger; type: line; curveShootingSpeed: 10; collisionEntities: #navmesh-walls; landingMaxAngle: 60" visible="true" ></a-entity>
+        <a-entity class="rightController" networked="template:#hand-right;attachTemplateToLocal:false;"
+          hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF" laser-controls raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;" line="color: #7cfc00; opacity: 0.5" visible="true"></a-entity>
+      </a-entity>
+
+
+      <a-entity id="Meeting_Structure" gltf-model="#Building" position="-10 0.01 12" rotation="0 0 0" scale="0.019 0.019 0.019" shadow=""></a-entity>
+
+      <a-entity id="Meeting_Structure_skeleton" gltf-model="#Building_skeleton" position="5.06328 0.82952 -7.72371" rotation="0 0 0" scale="0.0005 0.0005 0.0005" shadow=""></a-entity>
+
+      <a-box id="ramp" position="0.98334 2.29677 17.7" rotation="-67.55516179269485 0.3609634109324186 -0.21314029978866625" scale="1 3.75116 0.11246" width="4" height="4" color="#FFFFFF" shadow="receive: true"></a-box>
+
+      <a-box id="building patch" position="1.62148 4.939 -10.96095" rotation="-90 0 90" scale="0.009 3.58119 0.1" width="4" height="4" color="#3C4F4B" shadow="" material="" geometry=""></a-box>
+
+      <!-- Some 3D Text -->
+      <a-entity id="RocketVirtualTXT" position="1.84183 1.46367 -4.25854" rotation="0 90 0" text-geometry="value: Rocket Virtual; font: #optimerBoldFont" scale=".3 .3 1" material="color: #FFFFFF"></a-entity>
+
+      <a-entity id="YouAreHereTXT" position="5.44002 0.83589 -8.18475" rotation="-90.004 -2 90" text-geometry="value: You are here; font: assets/fonts/optimer_bold.typeface.json" scale="0.03 0.03 0.05" material="color: #98BE9C"></a-entity>
+
+      <a-entity id="SampleVideoPlayerTXT" position="-1.97251 1.81616 -3.58339" text-geometry="value: Welcome to my virtual reality office complex.; font: #optimerBoldFont" scale="0.3 0.3 0.3" material="color: white"></a-entity>
+
+      <!-- Place the Sun -->
+      <a-sphere id="flare" radius="0.05" color="yellow" lensflare="createLight:false; relative: true; src: #flare-asset; position:-109.093 10.428 -46.857; lightColor:yellow; intensity: 5; lightDecay: 500" position="-109.093 26.20844 -14.03708"></a-sphere>
+
+      <!-- Our Environment -->
+      <a-entity id="env" environment="preset: forest; playArea: 1.2; dressingAmount: 250; dressingUniformScale: true; dressingColor: #248728; ground: hills; groundTexture: none; groundColor: #34711C; groundColor2: #319D06; grid: none; gridColor: #81F995; skyType: gradient; skyColor: #A4CFFA; horizonColor: #95C8FA; fog: .75" shadow></a-entity>
+
+      <a-entity light="type: ambient; intensity: 0.2"></a-entity>
+
+      <!-- A light in the scene casting shadows -->
+      <a-entity light="intensity: 0.5; castShadow: true; shadowCameraLeft: -50; shadowCameraBottom: -50; shadowCameraRight: 50; shadowCameraTop: 50; shadowCameraVisible: false" position="-85.28485 65.36529 -12.29375"></a-entity>
+
+ 
+      <!-- Office Furniture -->
+      <a-entity id="Office_Swivel_Chair1" gltf-model="#SwivelChair" position="-4.50984 1.4088 -7.49469" rotation="0 51.53067817847597 0" scale="0.014 0.014 0.014" shadow visible=""></a-entity>
+      <a-entity id="Office_Swivel_Chair2" gltf-model="#SwivelChair" position="-1.08802 1.4088 -7.49469" rotation="0 -77.14704824097996 0" scale="0.014 0.014 0.014" shadow="" visible=""></a-entity>
+
+      <a-entity id="Office_Swivel_Chair3" gltf-model="#SwivelChair" position="-1.87096 1.4088 -9.64701" rotation="0 -33.77643498075716 0" scale="0.014 0.014 0.014" shadow="" visible=""></a-entity>
+  
+      <a-entity id="Computer_Desk" gltf-model="#Computer_Desk1" position="-3.53831 0.00717 -7.49088" rotation="0 -89.90223467618235 0" scale="0.013 0.013 0.013" shadow visible=""></a-entity>
+      <a-entity id="Shelf" gltf-model="#Shelf3" position="-1.38896 -0.07179 -4.27878" rotation="0 -180 0" scale="0.003 0.003 0.003" shadow visible=""></a-entity>
+
+      <a-entity id="Table" gltf-model="#Table1" position="5.34578 0.02888 -8.04148" rotation="0 -180 0" scale="0.001 0.001 0.001" shadow="" visible=""></a-entity>
+
+      <!-- Robots Sample Only (no video face plate) -->
+      <a-entity id="Robot Green" gltf-model="#Robot2" position="-2.6114 1.18304 -7.26037" rotation="0 118.3885503344966 0" scale="0.003 0.003 0.003" shadow visible=""></a-entity>
+
+      <a-entity id="Horse Model" gltf-model="assets/gltf/Horse_Free.glb" position="-32.48962 -0.00726 -5.51635" rotation="0 -29.66947350525942 0" scale="" shadow="" visible=""></a-entity>
+
+      <a-entity id="Trex Model" gltf-model="assets/gltf/Trex_base_mesh.glb" position="-18.37552 3.72096 -21.78617" rotation="0 -53.44321129862267 0" scale="1.8 1.8 1.8" shadow="" visible=""></a-entity>
+
+      <a-entity id="Tri Model" gltf-model="assets/gltf/Triceratops_base_mesh.glb" position="-24.36163 1.309 18.52896" rotation="0 105.51246980452161 0" scale="0.4 0.4 0.4" shadow="" visible=""></a-entity>
+
+      <a-entity id="Robot Purple" gltf-model="#Robot4" position="-2.6114 1.18304 -6.8313" rotation="0 89.96239524467109 0" scale="0.003 0.003 0.003" shadow visible=""></a-entity>
+      <a-entity id="Robot Red" gltf-model="#Robot5" position="-2.6114 1.18304 -7.68767" rotation="0 56.14012364030345 0" scale=".003 .003 .003" shadow visible=""></a-entity>
+      <a-entity id="Robot Large" gltf-model="#Robot6" position="-2.01922 1.69978 -4.35856" rotation="0 177.29835195646245 0" scale="0.007 0.007 0.007" shadow visible=""></a-entity>
+      <a-entity id="Flying Saucer" gltf-model="#Saucer" position="19.11134 -14.69214 -6.62685" rotation="34.226206849934854 16.358518008780134 2.398401330417626" scale="14 14 14" shadow visible=""></a-entity>
+
+
+      <a-entity id="Alien2" gltf-model="#Grey" position="28.79104 0.09554 0.10508" rotation="-59.668970700514194 -2.4362165448962605 -4.379689385980012" scale="2 2 2" shadow visible=""></a-entity>
+
+      <a-entity id="LargeRocket" gltf-model="#Rocket" position="1.23904 3.01167 -3.92876" rotation="-31.88395538344005 -12.176499062120255 -70.1380555331446" scale="0.5 0.5 0.5" shadow visible=""></a-entity>
+
+      <a-entity id="ShootRaygun" gltf-model="#Raygun" position="-0.72989 1.18823 -4.46382" rotation="77.82714914380024 0 0" scale="0.2 0.195 0.195" shadow visible=""></a-entity>
+
+   
+    </a-scene>
+
+    <script>
+      /**
+       * NAF Setup
+       */
+      NAF.schemas.add({
+        template: '#avatar-template',
+        components: [
+          'position',
+          'rotation',
+        ]
+      });
+      NAF.schemas.add({
+        template: '#head-template',
+        components: [
+          'position',
+          'rotation',
+        ]
+      });
+      NAF.schemas.add({
+        template: '#hand-left',
+        components: [
+          'position',
+          'rotation',
+        ]
+      });
+      NAF.schemas.add({
+        template: '#hand-right',
+        components: [
+          'position',
+          'rotation',
+        ]
+      });
+      function onConnect() {
+        console.log("connected to a room!");
+      }
+
+//Google Code for un-audio mute
+// Existing code unchanged.
+window.onload = function() {
+  var context = new AudioContext();
+  // Setup all nodes
+
+}
+
+// One-liner to resume playback when user interacted with the page.
+document.querySelector('button').addEventListener('click', function() {
+  context.resume().then(() => {
+    console.log('Playback resumed successfully');
+  });
+});
+    
+
+    </script>
+  </body>
+</html>

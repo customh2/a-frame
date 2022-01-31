@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Home Metaverse Server</title>
+    <meta name="description" content="Metaverse Server Virtual Reality Front Page">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" />
+  </head>
+  <body>
+    <h2>Welcome to something wonderful . . .</h2>
+    <p><img src="img/PiServer.png" width="50%" /></p>
+    <p>This web page is served by a small SBC (Single Board Computer) out of my home over a cable internet provider.  It is a fast capable "VR Metaverse Server" locally from my LAN at network speeds, and more slowly across the global internet. That's not to say it's a slow internet server, just that it is speedy on the local network serving up large files that are normal in the x-y-z axis 3D world of VR.</p>
+    <p>It utilizes <a href="https://aframe.io/" target="_blank">A-frame</a> WebXR NAF, and can be accessed with a browser inside a VR headset such as the Oculus Quest 2 or other headsets. It can also do VR Chat for fully immersive VR social experiences. Avatars are only anonymous at this time <i>(so please behave courteously to others who will appear as yellow robot heads)</i>.</p>
+    <p>Test VR in your headset with the links below <i>(select the VR button in lower right of browser screen to enter the immersive experience)</i>.  Detailed article on how to set this up are below.  You can find out more by following me on <a href="https://michael-mcanally.medium.com/a-four-year-writing-project-in-vr-13d3d8b821a7" target="_blank">Medium</a> and <a href="https://twitter.com/Michael_Blade" target="_blank">Twitter</a>. Also, checkout my internet hosted VR server at <a href="https://funbit64.com/" target="_blank">Funbit64.com</a> and <a href="https://rocketvirtual.com/" target="_blank">VR Blog</a> at Rocket Virtual.</p>
+
+    <hr />
+    <h3>Try These Multi-user VR Talk Test Links</h3>
+    <br />
+    <p><b>Please Note:</b> the test links proceeded with "Test on LAN" are to be tested with your VR headset locally on your home network through wi-fi.  Because of the many large 3D graphic files being transferred for VR and the upload speed of your cable/internet provider (which may be throttle or limited <a href="https://www.google.com/search?q=dsl+speed+test&amp;rlz=1C1SQJL_enUS858US858&amp;oq=DSL+speed+test&amp;aqs=chrome.0.69i59j0i512l9.2841j0j7&amp;sourceid=chrome&amp;ie=UTF-8" target="_blank">-test with DSL speed test</a>), experiences over the internet by others outside your LAN may have long delays in loading a VR enabled page.  This may exceed their patience level, or they may believe the page is broken (when it is not).  <i>These are not limitations of the Raspberry Pi, but rather limitations of the network upon which the Pi resides.</i>  However, if they (the visitor) have loaded the page previously, and the files reside within their browser's cache, load times will be significantly reduced, and the experience may be much more tolerable and enjoyable.</p>
+    <p>Good to test over the internet as well . . .<a href="https://vrmetaverseserver.space:3000/AdvancedHelloWorld.html" target="_blank">Advanced Hello World</a> -move around with controller toggle stick, select with the trigger on controller. (multi-player VR Talk enabled). Cycling VR environment.</p>
+    <p>Test on LAN:<a href="https://vrmetaverseserver.space:3000/VROffice.html" target="_blank">Virtual Reality Office Demo (multi-player VR Talk enabled)</a> -customize to your liking</p>
+    <p>Test on LAN:<a href="https://vrmetaverseserver.space:3000/IslandComplex.html" target="_blank">Treasure Island VR Demo (multi-player VR Talk enabled)</a> -an private island meeting place with sunken treasure and fish</p>
+    <p>Test on LAN mostly:<a href="https://vrmetaverseserver.space:3000/TeleportMindPalace.html" target="_blank">Mind Palace 360 Immersive VR Demo (multi-player VR Talk enabled)</a> -different rooms, 360 teleportation, customize by changing to your photos.  Very slow load over Internet, could take up to 2 mins because of 12 heavy 360 photos.  You can also reduce that number number by modifying HTML.  Good demonstration of upload speed latency.  Cached browser files will be a significantly much quicker load on second attempt. Background task loading is something I haven't tried yet.  Could possibly solve problem and make the UX much better over internet access.</p>
+<hr><br>
+<h3>Original Networked A-frame Examples</h3>
+<br>
+<a href="index.html" target="_blank">Networked-Aframe Examples</a><br><br>
+    <hr /><br>
+    <h3>How To Make Your Own Home Metaverse Server</h3>
+    <br />
+    <p><a href="https://michael-mcanally.medium.com/setting-up-a-raspberry-pi-as-a-home-metaverse-server-for-your-vr-headset-12632ac1b871" target="_blank">You can find out more about how to setup your own Raspberry Pi Metaverse Server in this article.</a></p><br /><br />
+<hr>
+<br>
+<h3>VR Headset Controls</h3><br> 
+<img src="https://funbit64.com/assets/img/movementControl.jpg"><br><p>MOVEMENT: If you have no VR Headset, use the WASD or Arrow keys to move around, the left mouse button drag in the center of the screen rotates your view, pressing the ESC key recovers your mouse pointer.</p> 
+        <hr /><br>
+<h3 id="how">Instructions On How To Enable "VR Talk Mode" Inside Chrome For A No-headset Experience</h3><br>
+
+<p>VR headsets, desktops or laptops computers recommended for best experience because of the high speed connections and graphic processing power sometimes required for VR.</p><p>Depending on which browser you use to view the web page, the "allow controls" will appear a little different.  At this time the only supported browsers are Firefox, Chrome, Edge and Oculus.  Safari is not a supported browser for required WebXR at this time (fall 2021).</p>
+
+<img src="https://miro.medium.com/max/438/1*_Edg-Ph_976x9nSo3RuYvg.png" /><br><br>
+
+<p>Click on the little lock next to the URL in the address bar in the upper top left of your browser screen to see the microphone and sound settings in the Chrome browser.  Allow the microphone and sound.  If you have troubles with the Chrome sound enable, some people do, you might want to try using the Firefox or Edge browsers instead.</p>
+<p><b>In Chrome, to enable sound:</b><br>
+1. Click on the three vertical dots in the upper right corner of Chrome browser<br><br>
+
+2. Select "Settings"<br><br>
+
+3. Select "Privacy and security" on the left.<br><br>
+
+4. Find "Site Settings" in the middle of the screen.<br><br>
+
+5. Scroll down to find "Additional Content Settings".<br><br>
+
+6. Under sound expand and selection and click "Sites can play sound".  That should do it.</p>
+<p>There will need to be more than one person connected to the web page than yourself for you to see and hear another user appearing as a robot head avatar. Also microphone/speakers (recommend earphones to eliminate possible feedback) must be available on your computer to hear any speaking audio between the connected persons.</p><p>To test with yourself on the same machine, open two tabs to the same address.  Please return to the previous browser tab to allow your settings for microphone and sound.  Camera "must be allowed" if you have a video conference camera attached to your computer.</p>
+<br><br>
+</body>
+</html>
